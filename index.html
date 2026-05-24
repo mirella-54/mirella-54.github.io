@@ -158,6 +158,39 @@
             border-color: #0A3323 #fff #fff #0A3323;
         }
 
+        /* Right side containment wrapper */
+        .taskbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- QUICK LAUNCH / SOCIAL SHORTCUTS --- */
+        .social-shortcuts {
+            display: flex;
+            gap: 6px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #D3968C;
+            color: #0A3323;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            height: 24px;
+            padding: 0 6px;
+            border: 1px solid;
+            border-color: #fff #0A3323 #0A3323 #fff;
+        }
+
+        .social-link:active {
+            border-color: #0A3323 #fff #fff #0A3323;
+            transform: translate(1px, 1px);
+        }
+
         .system-tray {
             background-color: #6d8046;
             border: 2px solid;
@@ -165,25 +198,33 @@
             padding: 4px 10px;
             font-size: 12px;
             color: #F7F4D5;
+            min-width: 85px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
     <div class="desktop">
-        
+
         <div class="icon" onclick="openWindow('win-about')">
-            <div class="icon-graphic">👤</div>
+            <div class="icon-graphic">
+                <img src="about-icon.png" alt="About Me">
+            </div>
             <div class="icon-label">About_Me.txt</div>
         </div>
 
         <div class="icon" onclick="openWindow('win-experience')">
-            <div class="icon-graphic">💼</div>
+            <div class="icon-graphic">
+                <img src="experience-icon.png" alt="Experience">
+            </div>
             <div class="icon-label">Experience.lnk</div>
         </div>
-
+    
         <div class="icon" onclick="openWindow('win-projects')">
-            <div class="icon-graphic">🛠️</div>
+            <div class="icon-graphic">
+                <img src="projects-icon.png" alt="Projects">
+            </div>
             <div class="icon-label">My_Projects</div>
         </div>
 
@@ -244,8 +285,26 @@
         <button class="start-button" onclick="alert('Start Menu functionality coming soon!')">
             Start
         </button>
-        <div class="system-tray">
-            <span id="clock">12:00 PM</span>
+
+        <div class="taskbar-right">
+            
+            <div class="social-shortcuts">
+                <a class="social-link" href="https://github.com/mirella-54" target="_blank" title="GitHub">
+                    GitHub
+                </a>
+                
+                <a class="social-link" href="https://linkedin.com/in/mirella-zeisler" target="_blank" title="LinkedIn">
+                    LinkedIn
+                </a>
+                
+                <a class="social-link" href="mailto:mirella-zeisler@gmail.com" title="Email Me">
+                    Email
+                </a>
+            </div>
+            
+            <div class="system-tray">
+                <span id="clock">12:00 PM</span>
+            </div>
         </div>
     </div>
 
@@ -263,11 +322,9 @@
         }
 
         function focusWindow(id) {
-            // Remove active status from all windows
             const windows = document.querySelectorAll('.window');
             windows.forEach(w => w.classList.remove('active'));
             
-            // Bring the selected window to front
             const activeWin = document.getElementById(id);
             activeWin.classList.add('active');
         }
