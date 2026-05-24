@@ -46,16 +46,18 @@
         }
 
         .icon-graphic {
-            width: 32px;
-            height: 32px;
-            background-color: #D3968C;
-            border: 2px solid #fff;
-            margin-bottom: 5px;
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+
+        .icon-graphic img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            image-rendering: pixelated; 
         }
 
         .icon:active .icon-graphic {
@@ -144,14 +146,25 @@
         }
 
         .start-button {
-            background-color: #D3968C; 
+            background-color: #D3968C;
             border: 2px solid;
             border-color: #fff #0A3323 #0A3323 #fff;
             font-weight: bold;
             font-size: 14px;
-            padding: 4px 12px;
+            padding: 4px 8px;
             cursor: pointer;
             color: #0A3323;
+            
+            display: flex;
+            align-items: center;
+            gap: 6px; 
+        }
+
+        .start-icon-img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            image-rendering: pixelated;
         }
 
         .start-button:active {
@@ -201,6 +214,37 @@
             min-width: 85px;
             text-align: center;
         }
+
+        .profile-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: 2px solid;
+            border-color: #0A3323 #fff #fff #0A3323; 
+            background-color: #839958;
+        }
+
+        .profile-text {
+            flex: 1;
+        }
+
+        @media (max-width: 500px) {
+            .profile-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .window {
+                width: 90% !important;
+                left: 5% !important;
+                top: 5% !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -237,9 +281,25 @@
                 </div>
             </div>
             <div class="window-body">
-                <h3>Hello, World!</h3>
-                <br>
-                <p>This is where your primary introduction goes. Talk about who you are, what drives you, and what your core values are as a developer/professional.</p>
+                <div class="profile-container">
+                    <img class="profile-pic" src="profile.jpeg" alt="Mirella">
+                    
+                    <div class="profile-text">
+                        <h3>Hello, World!</h3>
+                        <br>
+                        <p>
+                            My name is Mirella and I am a Masters student of Computer Science at TU Delft.
+                            I enjoy building systems that solve problems and researching big questions, especially
+                            related to multimodal applications, abstract reasoning and safe AI systems.
+                        </p>
+                        <br>
+                        <p>
+                            I am currently working on my thesis project, which explores analogical reasoning in 
+                            vision-language models. When I am not coding, I enjoy travelling, reading, crocheting and 
+                            running.  
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -252,13 +312,45 @@
                 </div>
             </div>
             <div class="window-body">
-                <h3>Senior Developer @ Cool Company</h3>
-                <p><em>2024 - Present</em></p>
-                <p>• Engineered responsive UI components using custom design layouts.</p>
-                <br>
-                <h3>Junior Engineer @ Tech Startup</h3>
-                <p><em>2022 - 2024</em></p>
-                <p>• Maintained legacy platforms and streamlined asset workflows.</p>
+                <h3>Software Engineering Intern</h3>
+                <h4>Uber</h4>
+                <em>August 2023 - February 2024</em>
+                <ul>
+                    <li>Developed backend features in Golang for earner incentive systems, utilizing DocStore (MySQL), Cadence workflows, and Flipr feature flags distributed to millions of users.</li>
+                    <li>Led end-to-end development of the location-based incentive targeting system, integrating advanced geofencing logic to filter campaigns by city and sub-city regions.</li>
+                    <li>Built a configurable referral banner, enabling updates without layout code changes and coordinating integrations directly with mobile app teams.</li>
+                </ul>
+
+                <hr>
+
+                <h3>Satellite Software Engineer</h3>
+                <h4>Da Vinci Satellite</h4>
+                <em>October 2022 - October 2023</em>
+                <ul>
+                    <li>Refactored a large monolithic codebase into modular satellite modes, significantly increasing baseline system clarity and firmware maintainability.</li>
+                    <li>Implemented uplink transmission functionality task flows between the ground station and hardware satellite tracking via Python scripts.</li>
+                    <li>Collaborated closely with electrical engineers and navigated complex technical hardware systems documentation to effectively map structural requirements.</li>
+                </ul>
+
+                <hr>
+
+                <h3>Web Developer</h3>
+                <h4>coalsoft</h4>
+                <em>April 2023 - June 2023</em>
+                <ul>
+                    <li>Built an educational web platform within an agile five-person development team structure, delivering robust features across both frontend and backend modules.</li>
+                    <li>Implemented features using React.js, Node.js, Express, and SQLite to ensure smooth user client flows and local data persistence controls.</li>
+                </ul>
+
+                <hr>
+
+                <h3>Teaching Assistant</h3>
+                <h4>TU Delft</h4>
+                <em>February 2023 - Current</em>
+                <ul>
+                    <li><strong>Object-Oriented Programming Project:</strong> Evaluated team software architecture implementations, graded final deliverables, and mentored student groups working through JavaFX, Spring, and Scrum sprint planning frameworks.</li>
+                    <li><strong>Generative Modeling:</strong> Supervised student reproducibility labs researching and replicating foundational papers addressing causal reasoning across modern LLM systems.</li>
+                </ul>
             </div>
         </div>
 
@@ -271,19 +363,43 @@
                 </div>
             </div>
             <div class="window-body">
-                <h3>Project Alpha</h3>
-                <p>An amazing web application built using clean semantic HTML structure and retro design accents.</p>
-                <br>
-                <h3>Project Beta</h3>
-                <p>A fun client-side operating system clone designed to host a professional work history portfolio.</p>
-            </div>
+                <h3>Master Thesis: Multimodal Analogical Reasoning</h3>
+                <h4><em>In Progress • Tech: VLMs, Category Theory, Self-distillation</em></h4>
+                <p>Developing a structured analogy representational schema via colored multigraph architectures to structurally optimize abstract analogical reasoning loops in Large Language Models.</p>
+                <ul>
+                    <li>Applying concepts of Category Theory directly to semantic analogies to generate automated supervisory feedback signals for model self-distillation.</li>
+                    <li>Benchmarking architectural efficacy across both analytical problems (RAVEN datasets) and abstract creative processing (visual metaphor context transfers).</li>
+                </ul>
+
+                <hr>
+
+                <h3>Bachelor Thesis: ASR Systems and Dysarthria</h3>
+                <h4><em>Graduated Cum Laude• Tech: Whisper LoRA, PEFT Library</em></h4>
+                <p>Enhanced automatic speech recognition (ASR) engine accuracy models processing highly dysarthric speech patterns via advanced low-rank adaptation transfer parameters.</p>
+                <ul>
+                    <li>Applied PEFT workflows onto a foundational Whisper Large-V3 base architecture.</li>
+                    <li>Achieved a 22.65% relative scaling drop in localized word error rates across all checked severity metrics.</li>
+                    <li>Completed defense evaluation with a final grading metric of 9.5/10.</li>
+                </ul>
+
+                <hr>
+
+                <h3>Learning-to-Rank Recommendation System</h3>
+                <h4><em>Tech: PyTorch, LambdaMART, Sentence-BERT, Inception V3</em></h4>
+                <p>Designed and built a multimodal Learning-to-Rank context recommendation system processing the book cover visuals within the BookCrossing Dataset.</p>
+                <ul>
+                    <li>Engineered a custom user-centric dual-encoder mapping layout inside PyTorch that processes explicit target reader item history in parallel with text metadata streams.</li>
+                    <li>Extracted high-fidelity deep cover assets using Inception V3 alongside semantic textual profiles from Sentence-BERT models.</li>
+                    <li>Trained a robust downstream LambdaMART architecture to demonstrate a clear 3.4% absolute utility lift inside NDCG@5 scores compared against text-only pipelines.</li>
+                </ul>
         </div>
 
     </div>
 
     <div class="taskbar">
-        <button class="start-button" onclick="alert('Start Menu functionality coming soon!')">
-            Start
+        <button class="start-button">
+            <img src="start-icon.png" alt="" class="start-icon-img">
+            <span>Start</span>
         </button>
 
         <div class="taskbar-right">
