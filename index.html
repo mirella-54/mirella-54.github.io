@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Retro OS Resume</title>
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
+            -webkit-font-smoothing: none;
+            -moz-osx-font-smoothing: none;
+            user-select: none;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background-color: #105666;
+        }
+
+        /* --- THE DESKTOP --- */
+        .desktop {
+            width: 100%;
+            height: calc(100% - 40px);
+            position: relative;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 20px;
+        }
+
+        /* --- DESKTOP ICONS --- */
+        .icon {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .icon-graphic {
+            width: 32px;
+            height: 32px;
+            background-color: #D3968C;
+            border: 2px solid #fff;
+            margin-bottom: 5px;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .icon:active .icon-graphic {
+            box-shadow: none;
+            transform: translate(1px, 1px);
+        }
+
+        .icon-label {
+            color: #F7F4D5;
+            font-size: 12px;
+            text-shadow: 1px 1px 1px #000;
+            word-break: break-word;
+        }
+
+        /* --- RETRO WINDOW --- */
+        .window {
+            position: absolute;
+            width: 450px;
+            background-color: #F7F4D5;
+            border: 2px solid;
+            border-color: #fff #839958 #839958 #fff; 
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            display: none; 
+            z-index: 10;
+        }
+
+        .window.active {
+            z-index: 100;
+        }
+
+        .window-titlebar {
+            background: #0A3323;
+            color: #F7F4D5;
+            padding: 4px 6px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+        }
+
+        .window-controls button {
+            background: #839958; 
+            border: 1px solid;
+            border-color: #fff #0A3323 #0A3323 #fff;
+            color: #0A3323;
+            font-size: 10px;
+            font-weight: bold;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            margin-left: 2px;
+        }
+
+        .window-controls button:active {
+            border-color: #0A3323 #fff #fff #0A3323;
+        }
+
+        .window-body {
+            padding: 15px;
+            font-size: 14px;
+            color: #0A3323;
+            line-height: 1.4;
+            max-height: 350px;
+            overflow-y: auto;
+            user-select: text;
+        }
+
+        /* --- TASKBAR --- */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #839958; 
+            border-top: 2px solid #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 6px;
+            z-index: 9999;
+        }
+
+        .start-button {
+            background-color: #D3968C; 
+            border: 2px solid;
+            border-color: #fff #0A3323 #0A3323 #fff;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 4px 12px;
+            cursor: pointer;
+            color: #0A3323;
+        }
+
+        .start-button:active {
+            border-color: #0A3323 #fff #fff #0A3323;
+        }
+
+        .system-tray {
+            background-color: #6d8046;
+            border: 2px solid;
+            border-color: #0A3323 #fff #fff #0A3323;
+            padding: 4px 10px;
+            font-size: 12px;
+            color: #F7F4D5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="desktop">
+        
+        <div class="icon" onclick="openWindow('win-about')">
+            <div class="icon-graphic">👤</div>
+            <div class="icon-label">About_Me.txt</div>
+        </div>
+
+        <div class="icon" onclick="openWindow('win-experience')">
+            <div class="icon-graphic">💼</div>
+            <div class="icon-label">Experience.lnk</div>
+        </div>
+
+        <div class="icon" onclick="openWindow('win-projects')">
+            <div class="icon-graphic">🛠️</div>
+            <div class="icon-label">My_Projects</div>
+        </div>
+
+        <div id="win-about" class="window" style="top: 10%; left: 25%;">
+            <div class="window-titlebar" onmousedown="focusWindow('win-about')">
+                <span>About Me</span>
+                <div class="window-controls">
+                    <button onclick="closeWindow('win-about')">_</button>
+                    <button onclick="closeWindow('win-about')">X</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <h3>Hello, World!</h3>
+                <br>
+                <p>This is where your primary introduction goes. Talk about who you are, what drives you, and what your core values are as a developer/professional.</p>
+            </div>
+        </div>
+
+        <div id="win-experience" class="window" style="top: 20%; left: 35%;">
+            <div class="window-titlebar" onmousedown="focusWindow('win-experience')">
+                <span>Professional Experience</span>
+                <div class="window-controls">
+                    <button onclick="closeWindow('win-experience')">_</button>
+                    <button onclick="closeWindow('win-experience')">X</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <h3>Senior Developer @ Cool Company</h3>
+                <p><em>2024 - Present</em></p>
+                <p>• Engineered responsive UI components using custom design layouts.</p>
+                <br>
+                <h3>Junior Engineer @ Tech Startup</h3>
+                <p><em>2022 - 2024</em></p>
+                <p>• Maintained legacy platforms and streamlined asset workflows.</p>
+            </div>
+        </div>
+
+        <div id="win-projects" class="window" style="top: 15%; left: 45%;">
+            <div class="window-titlebar" onmousedown="focusWindow('win-projects')">
+                <span>My Projects</span>
+                <div class="window-controls">
+                    <button onclick="closeWindow('win-projects')">_</button>
+                    <button onclick="closeWindow('win-projects')">X</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <h3>Project Alpha</h3>
+                <p>An amazing web application built using clean semantic HTML structure and retro design accents.</p>
+                <br>
+                <h3>Project Beta</h3>
+                <p>A fun client-side operating system clone designed to host a professional work history portfolio.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="taskbar">
+        <button class="start-button" onclick="alert('Start Menu functionality coming soon!')">
+            Start
+        </button>
+        <div class="system-tray">
+            <span id="clock">12:00 PM</span>
+        </div>
+    </div>
+
+    <script>
+        // --- WINDOW LOGIC ---
+        function openWindow(id) {
+            const win = document.getElementById(id);
+            win.style.display = 'flex';
+            focusWindow(id);
+        }
+
+        function closeWindow(id) {
+            const win = document.getElementById(id);
+            win.style.display = 'none';
+        }
+
+        function focusWindow(id) {
+            // Remove active status from all windows
+            const windows = document.querySelectorAll('.window');
+            windows.forEach(w => w.classList.remove('active'));
+            
+            // Bring the selected window to front
+            const activeWin = document.getElementById(id);
+            activeWin.classList.add('active');
+        }
+
+        // --- CLOCK WORKER ---
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12; 
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('clock').innerHTML = hours + ':' + minutes + ' ' + ampm;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
