@@ -46,11 +46,11 @@
         }
 
         .icon-graphic {
-        width: 56px;
-        height: 56px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .icon-graphic img {
@@ -75,7 +75,7 @@
         /* --- RETRO WINDOW --- */
         .window {
             position: absolute;
-            width: 450px;
+            width: 650px;
             background-color: #F7F4D5;
             border: 2px solid;
             border-color: #fff #839958 #839958 #fff; 
@@ -124,9 +124,88 @@
             font-size: 14px;
             color: #0A3323;
             line-height: 1.4;
-            max-height: 350px;
+            max-height: 450px;
             overflow-y: auto;
             user-select: text;
+        }
+
+        /* --- CV FORMATTING --- */
+        .window-body ul {
+            margin-left: 20px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .window-body hr {
+            border: none;
+            border-top: 1px dotted #839958;
+            margin: 15px 0;
+        }
+
+        /* --- TRAVEL GALLERY STYLES --- */
+        .gallery-explainer {
+            font-size: 12px;
+            color: #105666;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+        }
+        .photo-card {
+            background-color: #fff;
+            border: 1px solid #839958;
+            padding: 6px;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+        }
+        .photo-card:hover {
+            border-color: #0A3323;
+            background-color: #F7F4D5;
+        }
+        .photo-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #0A3323;
+            margin-bottom: 4px;
+        }
+        .photo-caption {
+            font-size: 11px;
+            color: #0A3323;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* --- IMAGE VIEWER / LIGHTBOX WINDOW --- */
+        #win-lightbox {
+            width: auto;
+            max-width: 90vw;
+            z-index: 200; 
+        }
+        .lightbox-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #000; 
+            padding: 10px;
+            border: 2px dashed #839958;
+        }
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            border: 1px solid #fff;
+        }
+        .lightbox-caption {
+            color: #F7F4D5;
+            font-size: 12px;
+            margin-top: 8px;
+            font-weight: bold;
         }
 
         /* --- TASKBAR --- */
@@ -154,7 +233,6 @@
             padding: 4px 8px;
             cursor: pointer;
             color: #0A3323;
-            
             display: flex;
             align-items: center;
             gap: 6px; 
@@ -171,14 +249,12 @@
             border-color: #0A3323 #fff #fff #0A3323;
         }
 
-        /* Right side containment wrapper */
         .taskbar-right {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* --- QUICK LAUNCH / SOCIAL SHORTCUTS --- */
         .social-shortcuts {
             display: flex;
             gap: 6px;
@@ -234,7 +310,6 @@
             flex: 1;
         }
 
-        /* Timeline Layout using CSS Grid */
         .updates-timeline {
             display: grid;
             grid-template-columns: 90px 1fr; 
@@ -242,7 +317,6 @@
             align-items: start;
         }
 
-        /* Date Column Styling */
         .timeline-date {
             font-weight: bold;
             color: #105666; 
@@ -254,7 +328,6 @@
             line-height: 1.3;
         }
 
-        /* Event Column Styling */
         .timeline-event {
             font-size: 13px;
             padding-bottom: 12px;
@@ -269,14 +342,14 @@
             padding-bottom: 0;
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 680px) {
             .profile-container {
                 flex-direction: column;
                 align-items: center;
             }
             .window {
-                width: 90% !important;
-                left: 5% !important;
+                width: 95% !important;
+                left: 2.5% !important;
                 top: 5% !important;
             }
         }
@@ -314,7 +387,14 @@
             <div class="icon-label">Updates</div>
         </div>
 
-        <div id="win-about" class="window" style="top: 10%; left: 25%;">
+        <div class="icon" onclick="openWindow('win-travel')">
+            <div class="icon-graphic">
+                <img src="travel-icon.png" alt="Travel Photos">
+            </div>
+            <div class="icon-label">Travel_Photos</div>
+        </div>
+
+        <div id="win-about" class="window" style="top: 8%; left: 10%;">
             <div class="window-titlebar" onmousedown="focusWindow('win-about')">
                 <span>About Me</span>
                 <div class="window-controls">
@@ -325,7 +405,6 @@
             <div class="window-body">
                 <div class="profile-container">
                     <img class="profile-pic" src="profile.jpeg" alt="Mirella">
-                    
                     <div class="profile-text">
                         <h3>Hello, World!</h3>
                         <br>
@@ -345,7 +424,7 @@
             </div>
         </div>
 
-        <div id="win-experience" class="window" style="top: 20%; left: 35%;">
+        <div id="win-experience" class="window" style="top: 12%; left: 15%;">
             <div class="window-titlebar" onmousedown="focusWindow('win-experience')">
                 <span>Professional Experience</span>
                 <div class="window-controls">
@@ -396,7 +475,7 @@
             </div>
         </div>
 
-        <div id="win-projects" class="window" style="top: 15%; left: 45%;">
+        <div id="win-projects" class="window" style="top: 16%; left: 20%;">
             <div class="window-titlebar" onmousedown="focusWindow('win-projects')">
                 <span>My Projects</span>
                 <div class="window-controls">
@@ -416,7 +495,7 @@
                 <hr>
 
                 <h3>Bachelor Thesis: ASR Systems and Dysarthria</h3>
-                <h4><em>Graduated Cum Laude• Tech: Whisper LoRA, PEFT Library</em></h4>
+                <h4><em>Graduated Cum Laude • Tech: Whisper LoRA, PEFT Library</em></h4>
                 <p>Enhanced automatic speech recognition (ASR) engine accuracy models processing highly dysarthric speech patterns via advanced low-rank adaptation transfer parameters.</p>
                 <ul>
                     <li>Applied PEFT workflows onto a foundational Whisper Large-V3 base architecture.</li>
@@ -437,7 +516,7 @@
             </div>
         </div>
 
-        <div id="win-updates" class="window" style="top: 20%; left: 35%;">
+        <div id="win-updates" class="window" style="top: 20%; left: 25%;">
             <div class="window-titlebar" onmousedown="focusWindow('win-updates')">
                 <span>Updates</span>
                 <div class="window-controls">
@@ -447,66 +526,188 @@
             </div>
             <div class="window-body">
                 <div class="updates-timeline">
-                    
                     <div class="timeline-date">Feb 2026</div>
-                    <div class="timeline-event">
-                        Begun working on my Master's thesis on analogical reasoning in VLMs with Chirag Raman.
-                    </div>
+                    <div class="timeline-event">Begun working on my Master's thesis on analogical reasoning in VLMs with Chirag Raman.</div>
 
                     <div class="timeline-date">Feb 2025</div>
-                    <div class="timeline-event">
-                        Started my Master's degree in Computer Science at TU Delft.
-                    </div>
+                    <div class="timeline-event">Started my Master's degree in Computer Science at TU Delft.</div>
 
                     <div class="timeline-date">Aug 2024 -<br>Feb 2025</div>
-                    <div class="timeline-event">
-                        Spent 6 months backpacking through South East and Eastern Asia, including countries like China, Indonesia, Laos, and India.
-                    </div>
+                    <div class="timeline-event">Spent 6 months backpacking through South East and Eastern Asia, including countries like China, Indonesia, Laos, and India.</div>
 
                     <div class="timeline-date">Jul 2024</div>
-                    <div class="timeline-event">
-                        Graduated with a Bachelor of Science in Computer Science & Engineering from TU Delft, graduating <strong>cum laude</strong>.
-                    </div>
+                    <div class="timeline-event">Graduated with a Bachelor of Science in Computer Science & Engineering from TU Delft, graduating <strong>cum laude</strong>.</div>
 
                     <div class="timeline-date">Jul 2024</div>
-                    <div class="timeline-event">
-                        Wrapped up my Bachelor thesis on fine-tuning Whisper for improved dysarthric speech recognition.
-                    </div>
+                    <div class="timeline-event">Wrapped up my Bachelor thesis on fine-tuning Whisper for improved dysarthric speech recognition.</div>
 
                     <div class="timeline-date">Feb 2024</div>
-                    <div class="timeline-event">
-                        Completed my 6-month software engineering internship at Uber with a return hiring offer.
-                    </div>
+                    <div class="timeline-event">Completed my 6-month software engineering internship at Uber with a return hiring offer.</div>
 
                     <div class="timeline-date">Sep 2021</div>
-                    <div class="timeline-event">
-                        Started my Bachelor in Computer Science at TU Delft.
+                    <div class="timeline-event">Started my Bachelor in Computer Science at TU Delft.</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="win-travel" class="window" style="top: 24%; left: 30%;">
+            <div class="window-titlebar" onmousedown="focusWindow('win-travel')">
+                <span>Travel Photo Library</span>
+                <div class="window-controls">
+                    <button onclick="closeWindow('win-travel')">_</button>
+                    <button onclick="closeWindow('win-travel')">X</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <p class="gallery-explainer">Snapshots from my travels:</p>
+                
+                <div id="travel-grid-container" class="photo-grid">
+                    
+                    <div class="photo-card" onclick="expandPhoto('antalya-gorge.jpeg', 'antalya-gorge.jpeg')">
+                        <img src="antalya-gorge.jpeg">
+                        <div class="photo-caption">antalya-gorge.jpeg</div>
+                    </div>
+                    
+                    <div class="photo-card" onclick="expandPhoto('avatar-mountains-china.jpeg', 'avatar-mountains-china.jpeg')">
+                        <img src="avatar-mountains-china.jpeg">
+                        <div class="photo-caption">avatar-mountains-china.jpeg</div>
+                    </div>
+                    
+                    <div class="photo-card" onclick="expandPhoto('blue-mountains-australia.jpeg', 'blue-mountains-australia.jpeg')">
+                        <img src="blue-mountains-australia.jpeg">
+                        <div class="photo-caption">blue-mountains-australia.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('brasov-romania.jpg', 'brasov-romania.jpg')">
+                        <img src="brasov-romania.jpg">
+                        <div class="photo-caption">brasov-romania.jpg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('cat-montenegro-kotor.jpeg', 'cat-montenegro-kotor.jpeg')">
+                        <img src="cat-montenegro-kotor.jpeg">
+                        <div class="photo-caption">cat-montenegro-kotor.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('cat-torii-japan.jpeg', 'cat-torii-japan.jpeg')">
+                        <img src="cat-torii-japan.jpeg">
+                        <div class="photo-caption">cat-torii-japan.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('chongqing-contrasts.jpeg', 'chongqing-contrasts.jpeg')">
+                        <img src="chongqing-contrasts.jpeg">
+                        <div class="photo-caption">chongqing-contrasts.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('jaipur-steps.JPG', 'jaipur-steps.JPG')">
+                        <img src="jaipur-steps.JPG">
+                        <div class="photo-caption">jaipur-steps.JPG</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('leopard-sri-lanka.JPG', 'leopard-sri-lanka.JPG')">
+                        <img src="leopard-sri-lanka.JPG">
+                        <div class="photo-caption">leopard-sri-lanka.JPG</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('mclaren-budapest-gp-2024.JPG', 'mclaren-budapest-gp-2024.JPG')">
+                        <img src="mclaren-budapest-gp-2024.JPG">
+                        <div class="photo-caption">mclaren-budapest-gp-2024.JPG</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('monkey.JPG', 'monkey.JPG')">
+                        <img src="monkey.JPG">
+                        <div class="photo-caption">monkey.JPG</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('night-sky-tenerife.JPG', 'night-sky-tenerife.JPG')">
+                        <img src="night-sky-tenerife.JPG">
+                        <div class="photo-caption">night-sky-tenerife.JPG</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('podium-budapest-gp-2024.JPG', 'podium-budapest-gp-2024.JPG')">
+                        <img src="podium-budapest-gp-2024.JPG">
+                        <div class="photo-caption">podium-budapest-gp-2024.JPG</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('puppy-laos-nong-khiaw.jpeg', 'puppy-laos-nong-khiaw.jpeg')">
+                        <img src="puppy-laos-nong-khiaw.jpeg">
+                        <div class="photo-caption">puppy-laos-nong-khiaw.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('river-luang-prabang.jpeg', 'river-luang-prabang.jpeg')">
+                        <img src="river-luang-prabang.jpeg">
+                        <div class="photo-caption">river-luang-prabang.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('shells-indonesia.jpeg', 'shells-indonesia.jpeg')">
+                        <img src="shells-indonesia.jpeg">
+                        <div class="photo-caption">shells-indonesia.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('sunset-laos.jpeg', 'sunset-laos.jpeg')">
+                        <img src="sunset-laos.jpeg">
+                        <div class="photo-caption">sunset-laos.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('sydney.JPG', 'sydney.JPG')">
+                        <img src="sydney.JPG">
+                        <div class="photo-caption">sydney.JPG</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('taj-mahal-reflections.JPG', 'taj-mahal-reflections.JPG')">
+                        <img src="taj-mahal-reflections.JPG">
+                        <div class="photo-caption">taj-mahal-reflections.JPG</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('taj-mahal.jpeg', 'taj-mahal.jpeg')">
+                        <img src="taj-mahal.jpeg">
+                        <div class="photo-caption">taj-mahal.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('tenerife-sunset.jpeg', 'tenerife-sunset.jpeg')">
+                        <img src="tenerife-sunset.jpeg">
+                        <div class="photo-caption">tenerife-sunset.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('turtles-indonesia.jpeg', 'turtles-indonesia.jpeg')">
+                        <img src="turtles-indonesia.jpeg">
+                        <div class="photo-caption">turtles-indonesia.jpeg</div>
+                    </div>
+
+                    <div class="photo-card" onclick="expandPhoto('vietnam-chicks.jpeg', 'vietnam-chicks.jpeg')">
+                        <img src="vietnam-chicks.jpeg">
+                        <div class="photo-caption">vietnam-chicks.jpeg</div>
                     </div>
 
                 </div>
             </div>
         </div>
 
+        <div id="win-lightbox" class="window" style="top: 15%; left: 35%;">
+            <div class="window-titlebar" onmousedown="focusWindow('win-lightbox')">
+                <span id="lightbox-title">ImageViewer.exe</span>
+                <div class="window-controls">
+                    <button onclick="closeWindow('win-lightbox')">X</button>
+                </div>
+            </div>
+            <div class="window-body lightbox-body">
+                <img id="expanded-image" class="lightbox-img" src="" alt="Expanded Preview">
+                <div id="expanded-caption" class="lightbox-caption"></div>
+            </div>
+        </div>
+
+    </div>
+
     <div class="taskbar">
-        <button class="start-button">
+        <button class="start-button" onclick="alert('Mirella OS v1.0. Click a desktop app to begin browsing.')">
             <img src="start-icon.png" alt="" class="start-icon-img">
             <span>Start</span>
         </button>
 
         <div class="taskbar-right">
-            
             <div class="social-shortcuts">
-                <a class="social-link" href="https://github.com/mirella-54" target="_blank" title="GitHub">
-                    GitHub
-                </a>
-                
-                <a class="social-link" href="https://linkedin.com/in/mirella-zeisler" target="_blank" title="LinkedIn">
-                    LinkedIn
-                </a>
-                
-                <a class="social-link" href="mailto:mirella-zeisler@gmail.com" title="Email Me">
-                    Email
-                </a>
+                <a class="social-link" href="https://github.com/mirella-54" target="_blank" title="GitHub">GitHub</a>
+                <a class="social-link" href="https://linkedin.com/in/mirella-zeisler" target="_blank" title="LinkedIn">LinkedIn</a>
+                <a class="social-link" href="mailto:mirella-zeisler@gmail.com" title="Email Me">Email</a>
             </div>
             
             <div class="system-tray">
@@ -535,6 +736,27 @@
             const activeWin = document.getElementById(id);
             activeWin.classList.add('active');
         }
+
+        // --- ENLARGE PHOTO LOGIC ---
+        function expandPhoto(imageSrc, captionText) {
+            document.getElementById('expanded-image').src = imageSrc;
+            document.getElementById('expanded-caption').innerText = captionText;
+            document.getElementById('lightbox-title').innerText = "ImageViewer.exe - " + captionText;
+            openWindow('win-lightbox');
+        }
+
+        // --- RANDOMIZE GALLERY ITEMS ON LOAD ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('travel-grid-container');
+            const cards = Array.from(grid.children);
+            
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            
+            cards.forEach(card => grid.appendChild(card));
+        });
 
         // --- CLOCK WORKER ---
         function updateClock() {
