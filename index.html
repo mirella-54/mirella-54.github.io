@@ -3,773 +3,592 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Retro OS Resume</title>
+    <title>Mirella Zeisler</title>
     <style>
-        /* --- RESET & BASE STYLES --- */
+        :root {
+            --bg: #EAF2F4;
+            --bg-alt: #D8E7EA;
+            --text: #1F3B4D;
+            --queen: #406B8C;
+            --red: #A4485E;
+            --mandarin: #EB8445;
+            --sand: #E4C5AF;
+            --border: #C7DCE2;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
-            -webkit-font-smoothing: none;
-            -moz-osx-font-smoothing: none;
-            user-select: none;
         }
 
-        body, html {
-            height: 100%;
-            overflow: hidden;
-            background-color: #105666;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* --- THE DESKTOP --- */
-        .desktop {
-            width: 100%;
-            height: calc(100% - 40px);
-            position: relative;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            align-content: flex-start;
-            gap: 20px;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
 
-        /* --- DESKTOP ICONS --- */
-        .icon {
-            width: 80px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .icon-graphic {
-            width: 56px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-graphic img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; 
-            image-rendering: pixelated; 
-        }
-
-        .icon:active .icon-graphic {
-            box-shadow: none;
-            transform: translate(1px, 1px);
-        }
-
-        .icon-label {
-            color: #F7F4D5;
-            font-size: 12px;
-            text-shadow: 1px 1px 1px #000;
-            word-break: break-word;
-        }
-
-        /* --- RETRO WINDOW --- */
-        .window {
-            position: absolute;
-            width: 650px;
-            background-color: #F7F4D5;
-            border: 2px solid;
-            border-color: #fff #839958 #839958 #fff; 
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            display: none; 
-            z-index: 10;
-        }
-
-        .window.active {
-            z-index: 100;
-        }
-
-        .window-titlebar {
-            background: #0A3323;
-            color: #F7F4D5;
-            padding: 4px 6px;
-            font-weight: bold;
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: move;
-        }
-
-        .window-controls button {
-            background: #839958; 
-            border: 1px solid;
-            border-color: #fff #0A3323 #0A3323 #fff;
-            color: #0A3323;
-            font-size: 10px;
-            font-weight: bold;
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-            margin-left: 2px;
-        }
-
-        .window-controls button:active {
-            border-color: #0A3323 #fff #fff #0A3323;
-        }
-
-        .window-body {
-            padding: 15px;
-            font-size: 14px;
-            color: #0A3323;
-            line-height: 1.4;
-            max-height: 450px;
-            overflow-y: auto;
-            user-select: text;
-        }
-
-        /* --- CV FORMATTING --- */
-        .window-body ul {
-            margin-left: 20px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-        }
-        .window-body hr {
-            border: none;
-            border-top: 1px dotted #839958;
-            margin: 15px 0;
-        }
-
-        /* --- TRAVEL GALLERY STYLES --- */
-        .gallery-explainer {
-            font-size: 12px;
-            color: #105666;
-            margin-bottom: 15px;
-            font-style: italic;
-        }
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 12px;
-        }
-        .photo-card {
-            background-color: #fff;
-            border: 1px solid #839958;
-            padding: 6px;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-            text-align: center;
-            cursor: pointer;
-        }
-        .photo-card:hover {
-            border-color: #0A3323;
-            background-color: #F7F4D5;
-        }
-        .photo-card img {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            border: 1px solid #0A3323;
-            margin-bottom: 4px;
-        }
-        .photo-caption {
-            font-size: 11px;
-            color: #0A3323;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* --- IMAGE VIEWER / LIGHTBOX WINDOW --- */
-        #win-lightbox {
-            width: auto;
-            max-width: 90vw;
-            z-index: 200; 
-        }
-        .lightbox-body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #000; 
-            padding: 10px;
-            border: 2px dashed #839958;
-        }
-        .lightbox-img {
-            max-width: 100%;
-            max-height: 60vh;
-            object-fit: contain;
-            border: 1px solid #fff;
-        }
-        .lightbox-caption {
-            color: #F7F4D5;
-            font-size: 12px;
-            margin-top: 8px;
-            font-weight: bold;
-        }
-
-        /* --- TASKBAR --- */
-        .taskbar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40px;
-            background-color: #839958; 
-            border-top: 2px solid #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2px 6px;
-            z-index: 9999;
-        }
-
-        .start-button {
-            background-color: #D3968C;
-            border: 2px solid;
-            border-color: #fff #0A3323 #0A3323 #fff;
-            font-weight: bold;
-            font-size: 14px;
-            padding: 4px 8px;
-            cursor: pointer;
-            color: #0A3323;
-            display: flex;
-            align-items: center;
-            gap: 6px; 
-        }
-
-        .start-icon-img {
-            width: 16px;
-            height: 16px;
-            object-fit: contain;
-            image-rendering: pixelated;
-        }
-
-        .start-button:active {
-            border-color: #0A3323 #fff #fff #0A3323;
-        }
-
-        .taskbar-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .social-shortcuts {
-            display: flex;
-            gap: 6px;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #D3968C;
-            color: #0A3323;
+        a {
+            color: var(--queen);
             text-decoration: none;
-            font-size: 11px;
-            font-weight: bold;
-            height: 24px;
-            padding: 0 6px;
-            border: 1px solid;
-            border-color: #fff #0A3323 #0A3323 #fff;
         }
 
-        .social-link:active {
-            border-color: #0A3323 #fff #fff #0A3323;
-            transform: translate(1px, 1px);
+        a:hover {
+            color: var(--mandarin);
+            text-decoration: underline;
         }
 
-        .system-tray {
-            background-color: #6d8046;
-            border: 2px solid;
-            border-color: #0A3323 #fff #fff #0A3323;
-            padding: 4px 10px;
-            font-size: 12px;
-            color: #F7F4D5;
-            min-width: 85px;
-            text-align: center;
-        }
-
-        .profile-container {
+        /* --- TOP NAV --- */
+        .topnav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: var(--bg-alt);
+            border-bottom: 1px solid var(--border);
             display: flex;
-            gap: 20px;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            flex-wrap: wrap;
+        }
+
+        .topnav .site-name {
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--text);
+            margin-right: 18px;
+        }
+
+        .topnav a {
+            color: var(--queen);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 3px;
+            border: 1px solid transparent;
+        }
+
+        .topnav a:hover {
+            color: var(--mandarin);
+            text-decoration: none;
+        }
+
+        .topnav a.current {
+            color: var(--mandarin);
+            border-color: var(--mandarin);
+        }
+
+        /* --- PAGE LAYOUT --- */
+        .page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+            display: flex;
+            gap: 56px;
             align-items: flex-start;
         }
 
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 220px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 90px;
+        }
+
         .profile-pic {
-            width: 120px;
-            height: 120px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
             object-fit: cover;
-            border: 2px solid;
-            border-color: #0A3323 #fff #fff #0A3323; 
-            background-color: #839958;
+            border: 3px solid var(--queen);
+            display: block;
         }
 
-        .profile-text {
+        .sidebar h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 18px;
+        }
+
+        .sidebar .tagline {
+            font-size: 14px;
+            color: var(--queen);
+            margin-top: 10px;
+        }
+
+        .sidebar-links {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .sidebar-links a,
+        .sidebar-links span {
+            color: var(--text);
+        }
+
+        .sidebar-links a:hover {
+            color: var(--mandarin);
+        }
+
+        /* --- MAIN CONTENT --- */
+        .content {
             flex: 1;
+            min-width: 0;
         }
 
-        .updates-timeline {
-            display: grid;
-            grid-template-columns: 90px 1fr; 
-            gap: 12px;
-            align-items: start;
+        section {
+            margin-bottom: 52px;
+            scroll-margin-top: 90px;
         }
 
-        .timeline-date {
-            font-weight: bold;
-            color: #105666; 
-            font-size: 12px;
-            text-transform: uppercase;
-            border-right: 1px dotted #839958; 
-            padding-right: 8px;
-            text-align: right;
-            line-height: 1.3;
+        section h2 {
+            font-size: 20px;
+            color: var(--text);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .timeline-event {
-            font-size: 13px;
-            padding-bottom: 12px;
-            border-bottom: 1px dotted rgba(131, 153, 88, 0.3); 
-            margin-bottom: 4px;
-            color: #0A3323;
+        section h2::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--border);
+            margin-left: 8px;
         }
 
-        .timeline-event:last-of-type {
+        .about-text p {
+            margin-bottom: 14px;
+        }
+
+        /* --- UPDATES / NEWS TIMELINE --- */
+        .updates-list {
+            list-style: none;
+        }
+
+        .updates-list li {
+            display: flex;
+            gap: 14px;
+            padding: 10px 0;
+            border-bottom: 1px dotted var(--sand);
+            font-size: 14px;
+        }
+
+        .updates-list li:last-child {
             border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
         }
 
-        @media (max-width: 680px) {
-            .profile-container {
+        .updates-list .date {
+            flex-shrink: 0;
+            width: 92px;
+            font-weight: 700;
+            color: var(--red);
+            font-size: 13px;
+        }
+
+        /* --- EXPERIENCE / PROJECTS ENTRIES --- */
+        .entry {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .entry:last-child {
+            border-bottom: none;
+        }
+
+        .entry-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .entry-sub {
+            font-size: 14px;
+            color: var(--red);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .entry-meta {
+            font-size: 13px;
+            color: var(--queen);
+            font-style: italic;
+            margin-top: 2px;
+        }
+
+        .entry p {
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .entry ul {
+            margin: 8px 0 0 20px;
+            font-size: 14px;
+        }
+
+        .entry li {
+            margin-bottom: 4px;
+        }
+
+        /* --- TRAVEL GALLERY --- */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        .photo-card {
+            cursor: pointer;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg-alt);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- LIGHTBOX --- */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(31, 59, 77, 0.88);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .lightbox-overlay.open {
+            display: flex;
+        }
+
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 28px;
+            color: var(--bg);
+            font-size: 32px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            color: var(--mandarin);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--queen);
+            padding: 24px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 720px) {
+            .page {
                 flex-direction: column;
+                gap: 32px;
+                padding-top: 32px;
+            }
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                text-align: center;
+            }
+
+            .profile-pic {
+                margin: 0 auto;
+            }
+
+            .sidebar-links {
                 align-items: center;
             }
-            .window {
-                width: 95% !important;
-                left: 2.5% !important;
-                top: 5% !important;
+
+            .topnav {
+                justify-content: center;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="desktop">
+    <nav class="topnav">
+        <span class="site-name">Mirella Zeisler</span>
+        <a href="#about" class="current">About</a>
+        <a href="#updates">Updates</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#travel">Travel</a>
+    </nav>
 
-        <div class="icon" onclick="openWindow('win-about')">
-            <div class="icon-graphic">
-                <img src="about-icon.png" alt="About Me">
-            </div>
-            <div class="icon-label">About_Me.txt</div>
-        </div>
+    <div class="page">
 
-        <div class="icon" onclick="openWindow('win-experience')">
-            <div class="icon-graphic">
-                <img src="experience-icon.png" alt="Experience">
+        <aside class="sidebar">
+            <img class="profile-pic" src="profile.jpeg" alt="Mirella Zeisler">
+            <h1>Mirella Zeisler</h1>
+            <p class="tagline">MSc Computer Science student at TU Delft, interested in multimodal AI and abstract reasoning.</p>
+            <div class="sidebar-links">
+                <span>📍 Delft, Netherlands</span>
+                <a href="mailto:mirella-zeisler@gmail.com">✉️ Email</a>
+                <a href="https://github.com/mirella-54" target="_blank">💻 GitHub</a>
+                <a href="https://linkedin.com/in/mirella-zeisler" target="_blank">🔗 LinkedIn</a>
             </div>
-            <div class="icon-label">Experience.lnk</div>
-        </div>
-    
-        <div class="icon" onclick="openWindow('win-projects')">
-            <div class="icon-graphic">
-                <img src="projects-icon.png" alt="Projects">
-            </div>
-            <div class="icon-label">My_Projects</div>
-        </div>
+        </aside>
 
-        <div class="icon" onclick="openWindow('win-updates')">
-            <div class="icon-graphic">
-                <img src="updates-icon.png" alt="Updates">
-            </div>
-            <div class="icon-label">Updates</div>
-        </div>
+        <main class="content">
 
-        <div class="icon" onclick="openWindow('win-travel')">
-            <div class="icon-graphic">
-                <img src="travel-icon.png" alt="Travel Photos">
-            </div>
-            <div class="icon-label">Travel_Photos</div>
-        </div>
-
-        <div id="win-about" class="window" style="top: 8%; left: 10%;">
-            <div class="window-titlebar" onmousedown="focusWindow('win-about')">
-                <span>About Me</span>
-                <div class="window-controls">
-                    <button onclick="closeWindow('win-about')">_</button>
-                    <button onclick="closeWindow('win-about')">X</button>
+            <section id="about">
+                <h2>👋 About Me</h2>
+                <div class="about-text">
+                    <p>
+                        My name is Mirella and I am a Master's student of Computer Science at TU Delft.
+                        I enjoy building systems that solve problems and researching big questions, especially
+                        related to multimodal applications, abstract reasoning and safe AI systems.
+                    </p>
+                    <p>
+                        I am currently working on my thesis project, which explores analogical reasoning in
+                        vision-language models. When I am not coding, I enjoy travelling, reading, crocheting and
+                        running.
+                    </p>
                 </div>
-            </div>
-            <div class="window-body">
-                <div class="profile-container">
-                    <img class="profile-pic" src="profile.jpeg" alt="Mirella">
-                    <div class="profile-text">
-                        <h3>Hello, World!</h3>
-                        <br>
-                        <p>
-                            My name is Mirella and I am a Masters student of Computer Science at TU Delft.
-                            I enjoy building systems that solve problems and researching big questions, especially
-                            related to multimodal applications, abstract reasoning and safe AI systems.
-                        </p>
-                        <br>
-                        <p>
-                            I am currently working on my thesis project, which explores analogical reasoning in 
-                            vision-language models. When I am not coding, I enjoy travelling, reading, crocheting and 
-                            running.  
-                        </p>
-                    </div>
+            </section>
+
+            <section id="updates">
+                <h2>🔥 Updates</h2>
+                <ul class="updates-list">
+                    <li>
+                        <span class="date">Feb 2026</span>
+                        <span>Begun working on my Master's thesis on analogical reasoning in VLMs with Chirag Raman.</span>
+                    </li>
+                    <li>
+                        <span class="date">Feb 2025</span>
+                        <span>Started my Master's degree in Computer Science at TU Delft.</span>
+                    </li>
+                    <li>
+                        <span class="date">Aug 2024 &ndash; Feb 2025</span>
+                        <span>Spent 6 months backpacking through South East and Eastern Asia, including countries like China, Indonesia, Laos, and India.</span>
+                    </li>
+                    <li>
+                        <span class="date">Jul 2024</span>
+                        <span>Graduated with a Bachelor of Science in Computer Science &amp; Engineering from TU Delft, graduating <strong>cum laude</strong>.</span>
+                    </li>
+                    <li>
+                        <span class="date">Jul 2024</span>
+                        <span>Wrapped up my Bachelor thesis on fine-tuning Whisper for improved dysarthric speech recognition.</span>
+                    </li>
+                    <li>
+                        <span class="date">Feb 2024</span>
+                        <span>Completed my 6-month software engineering internship at Uber with a return hiring offer.</span>
+                    </li>
+                    <li>
+                        <span class="date">Sep 2021</span>
+                        <span>Started my Bachelor in Computer Science at TU Delft.</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="experience">
+                <h2>💼 Experience</h2>
+
+                <div class="entry">
+                    <div class="entry-title">Software Engineering Intern</div>
+                    <div class="entry-sub">Uber</div>
+                    <div class="entry-meta">August 2023 &ndash; February 2024</div>
+                    <ul>
+                        <li>Developed backend features in Golang for earner incentive systems, utilizing DocStore (MySQL), Cadence workflows, and Flipr feature flags distributed to millions of users.</li>
+                        <li>Led end-to-end development of the location-based incentive targeting system, integrating advanced geofencing logic to filter campaigns by city and sub-city regions.</li>
+                        <li>Built a configurable referral banner, enabling updates without layout code changes and coordinating integrations directly with mobile app teams.</li>
+                    </ul>
                 </div>
-            </div>
-        </div>
 
-        <div id="win-experience" class="window" style="top: 12%; left: 15%;">
-            <div class="window-titlebar" onmousedown="focusWindow('win-experience')">
-                <span>Professional Experience</span>
-                <div class="window-controls">
-                    <button onclick="closeWindow('win-experience')">_</button>
-                    <button onclick="closeWindow('win-experience')">X</button>
+                <div class="entry">
+                    <div class="entry-title">Satellite Software Engineer</div>
+                    <div class="entry-sub">Da Vinci Satellite</div>
+                    <div class="entry-meta">October 2022 &ndash; October 2023</div>
+                    <ul>
+                        <li>Refactored a large monolithic codebase into modular satellite modes, significantly increasing baseline system clarity and firmware maintainability.</li>
+                        <li>Implemented uplink transmission functionality task flows between the ground station and hardware satellite tracking via Python scripts.</li>
+                        <li>Collaborated closely with electrical engineers and navigated complex technical hardware systems documentation to effectively map structural requirements.</li>
+                    </ul>
                 </div>
-            </div>
-            <div class="window-body">
-                <h3>Software Engineering Intern</h3>
-                <h4>Uber</h4>
-                <em>August 2023 - February 2024</em>
-                <ul>
-                    <li>Developed backend features in Golang for earner incentive systems, utilizing DocStore (MySQL), Cadence workflows, and Flipr feature flags distributed to millions of users.</li>
-                    <li>Led end-to-end development of the location-based incentive targeting system, integrating advanced geofencing logic to filter campaigns by city and sub-city regions.</li>
-                    <li>Built a configurable referral banner, enabling updates without layout code changes and coordinating integrations directly with mobile app teams.</li>
-                </ul>
 
-                <hr>
-
-                <h3>Satellite Software Engineer</h3>
-                <h4>Da Vinci Satellite</h4>
-                <em>October 2022 - October 2023</em>
-                <ul>
-                    <li>Refactored a large monolithic codebase into modular satellite modes, significantly increasing baseline system clarity and firmware maintainability.</li>
-                    <li>Implemented uplink transmission functionality task flows between the ground station and hardware satellite tracking via Python scripts.</li>
-                    <li>Collaborated closely with electrical engineers and navigated complex technical hardware systems documentation to effectively map structural requirements.</li>
-                </ul>
-
-                <hr>
-
-                <h3>Web Developer</h3>
-                <h4>coalsoft</h4>
-                <em>April 2023 - June 2023</em>
-                <ul>
-                    <li>Built an educational web platform within an agile five-person development team structure, delivering robust features across both frontend and backend modules.</li>
-                    <li>Implemented features using React.js, Node.js, Express, and SQLite to ensure smooth user client flows and local data persistence controls.</li>
-                </ul>
-
-                <hr>
-
-                <h3>Teaching Assistant</h3>
-                <h4>TU Delft</h4>
-                <em>February 2023 - Current</em>
-                <ul>
-                    <li><strong>Object-Oriented Programming Project:</strong> Evaluated team software architecture implementations, graded final deliverables, and mentored student groups working through JavaFX, Spring, and Scrum sprint planning frameworks.</li>
-                    <li><strong>Generative Modeling:</strong> Supervised student reproducibility labs researching and replicating foundational papers addressing causal reasoning across modern LLM systems.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="win-projects" class="window" style="top: 16%; left: 20%;">
-            <div class="window-titlebar" onmousedown="focusWindow('win-projects')">
-                <span>My Projects</span>
-                <div class="window-controls">
-                    <button onclick="closeWindow('win-projects')">_</button>
-                    <button onclick="closeWindow('win-projects')">X</button>
+                <div class="entry">
+                    <div class="entry-title">Web Developer</div>
+                    <div class="entry-sub">coalsoft</div>
+                    <div class="entry-meta">April 2023 &ndash; June 2023</div>
+                    <ul>
+                        <li>Built an educational web platform within an agile five-person development team structure, delivering robust features across both frontend and backend modules.</li>
+                        <li>Implemented features using React.js, Node.js, Express, and SQLite to ensure smooth user client flows and local data persistence controls.</li>
+                    </ul>
                 </div>
-            </div>
-            <div class="window-body">
-                <h3>Master Thesis: Multimodal Analogical Reasoning</h3>
-                <h4><em>In Progress • Tech: VLMs, Category Theory, Self-distillation</em></h4>
-                <p>Developing a structured analogy representational schema via colored multigraph architectures to structurally optimize abstract analogical reasoning loops in Large Language Models.</p>
-                <ul>
-                    <li>Applying concepts of Category Theory directly to semantic analogies to generate automated supervisory feedback signals for model self-distillation.</li>
-                    <li>Benchmarking architectural efficacy across both analytical problems (RAVEN datasets) and abstract creative processing (visual metaphor context transfers).</li>
-                </ul>
 
-                <hr>
-
-                <h3>Bachelor Thesis: ASR Systems and Dysarthria</h3>
-                <h4><em>Graduated Cum Laude • Tech: Whisper LoRA, PEFT Library</em></h4>
-                <p>Enhanced automatic speech recognition (ASR) engine accuracy models processing highly dysarthric speech patterns via advanced low-rank adaptation transfer parameters.</p>
-                <ul>
-                    <li>Applied PEFT workflows onto a foundational Whisper Large-V3 base architecture.</li>
-                    <li>Achieved a 22.65% relative scaling drop in localized word error rates across all checked severity metrics.</li>
-                    <li>Completed defense evaluation with a final grading metric of 9.5/10.</li>
-                </ul>
-
-                <hr>
-
-                <h3>Learning-to-Rank Recommendation System</h3>
-                <h4><em>Tech: PyTorch, LambdaMART, Sentence-BERT, Inception V3</em></h4>
-                <p>Designed and built a multimodal Learning-to-Rank context recommendation system processing the book cover visuals within the BookCrossing Dataset.</p>
-                <ul>
-                    <li>Engineered a custom user-centric dual-encoder mapping layout inside PyTorch that processes explicit target reader item history in parallel with text metadata streams.</li>
-                    <li>Extracted high-fidelity deep cover assets using Inception V3 alongside semantic textual profiles from Sentence-BERT models.</li>
-                    <li>Trained a robust downstream LambdaMART architecture to demonstrate a clear 3.4% absolute utility lift inside NDCG@5 scores compared against text-only pipelines.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="win-updates" class="window" style="top: 20%; left: 25%;">
-            <div class="window-titlebar" onmousedown="focusWindow('win-updates')">
-                <span>Updates</span>
-                <div class="window-controls">
-                    <button onclick="closeWindow('win-updates')">_</button>
-                    <button onclick="closeWindow('win-updates')">X</button>
+                <div class="entry">
+                    <div class="entry-title">Teaching Assistant</div>
+                    <div class="entry-sub">TU Delft</div>
+                    <div class="entry-meta">February 2023 &ndash; Current</div>
+                    <ul>
+                        <li><strong>Object-Oriented Programming Project:</strong> Evaluated team software architecture implementations, graded final deliverables, and mentored student groups working through JavaFX, Spring, and Scrum sprint planning frameworks.</li>
+                        <li><strong>Generative Modeling:</strong> Supervised student reproducibility labs researching and replicating foundational papers addressing causal reasoning across modern LLM systems.</li>
+                    </ul>
                 </div>
-            </div>
-            <div class="window-body">
-                <div class="updates-timeline">
-                    <div class="timeline-date">Feb 2026</div>
-                    <div class="timeline-event">Begun working on my Master's thesis on analogical reasoning in VLMs with Chirag Raman.</div>
+            </section>
 
-                    <div class="timeline-date">Feb 2025</div>
-                    <div class="timeline-event">Started my Master's degree in Computer Science at TU Delft.</div>
+            <section id="projects">
+                <h2>🚀 Projects</h2>
 
-                    <div class="timeline-date">Aug 2024 -<br>Feb 2025</div>
-                    <div class="timeline-event">Spent 6 months backpacking through South East and Eastern Asia, including countries like China, Indonesia, Laos, and India.</div>
-
-                    <div class="timeline-date">Jul 2024</div>
-                    <div class="timeline-event">Graduated with a Bachelor of Science in Computer Science & Engineering from TU Delft, graduating <strong>cum laude</strong>.</div>
-
-                    <div class="timeline-date">Jul 2024</div>
-                    <div class="timeline-event">Wrapped up my Bachelor thesis on fine-tuning Whisper for improved dysarthric speech recognition.</div>
-
-                    <div class="timeline-date">Feb 2024</div>
-                    <div class="timeline-event">Completed my 6-month software engineering internship at Uber with a return hiring offer.</div>
-
-                    <div class="timeline-date">Sep 2021</div>
-                    <div class="timeline-event">Started my Bachelor in Computer Science at TU Delft.</div>
+                <div class="entry">
+                    <div class="entry-title">Master Thesis: Multimodal Analogical Reasoning</div>
+                    <div class="entry-meta">In Progress &bull; Tech: VLMs, Category Theory, Self-distillation</div>
+                    <p>Developing a structured analogy representational schema via colored multigraph architectures to structurally optimize abstract analogical reasoning loops in Large Language Models.</p>
+                    <ul>
+                        <li>Applying concepts of Category Theory directly to semantic analogies to generate automated supervisory feedback signals for model self-distillation.</li>
+                        <li>Benchmarking architectural efficacy across both analytical problems (RAVEN datasets) and abstract creative processing (visual metaphor context transfers).</li>
+                    </ul>
                 </div>
-            </div>
-        </div>
 
-        <div id="win-travel" class="window" style="top: 24%; left: 30%;">
-            <div class="window-titlebar" onmousedown="focusWindow('win-travel')">
-                <span>Travel Photo Library</span>
-                <div class="window-controls">
-                    <button onclick="closeWindow('win-travel')">_</button>
-                    <button onclick="closeWindow('win-travel')">X</button>
+                <div class="entry">
+                    <div class="entry-title">Bachelor Thesis: ASR Systems and Dysarthria</div>
+                    <div class="entry-meta">Graduated Cum Laude &bull; Tech: Whisper LoRA, PEFT Library</div>
+                    <p>Enhanced automatic speech recognition (ASR) engine accuracy models processing highly dysarthric speech patterns via advanced low-rank adaptation transfer parameters.</p>
+                    <ul>
+                        <li>Applied PEFT workflows onto a foundational Whisper Large-V3 base architecture.</li>
+                        <li>Achieved a 22.65% relative scaling drop in localized word error rates across all checked severity metrics.</li>
+                        <li>Completed defense evaluation with a final grading metric of 9.5/10.</li>
+                    </ul>
                 </div>
-            </div>
-            <div class="window-body">
-                <p class="gallery-explainer">Snapshots from my travels:</p>
-                
+
+                <div class="entry">
+                    <div class="entry-title">Learning-to-Rank Recommendation System</div>
+                    <div class="entry-meta">Tech: PyTorch, LambdaMART, Sentence-BERT, Inception V3</div>
+                    <p>Designed and built a multimodal Learning-to-Rank context recommendation system processing the book cover visuals within the BookCrossing Dataset.</p>
+                    <ul>
+                        <li>Engineered a custom user-centric dual-encoder mapping layout inside PyTorch that processes explicit target reader item history in parallel with text metadata streams.</li>
+                        <li>Extracted high-fidelity deep cover assets using Inception V3 alongside semantic textual profiles from Sentence-BERT models.</li>
+                        <li>Trained a robust downstream LambdaMART architecture to demonstrate a clear 3.4% absolute utility lift inside NDCG@5 scores compared against text-only pipelines.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="travel">
+                <h2>📸 Travel Photos</h2>
+                <p style="font-size: 14px; color: var(--queen); margin-bottom: 16px; font-style: italic;">Snapshots from my travels &mdash; click to enlarge.</p>
                 <div id="travel-grid-container" class="photo-grid">
-                    
-                    <div class="photo-card" onclick="expandPhoto('antalya-gorge.jpeg', 'antalya-gorge.jpeg')">
-                        <img src="antalya-gorge.jpeg">
-                        <div class="photo-caption">antalya-gorge.jpeg</div>
-                    </div>
-                    
-                    <div class="photo-card" onclick="expandPhoto('avatar-mountains-china.jpeg', 'avatar-mountains-china.jpeg')">
-                        <img src="avatar-mountains-china.jpeg">
-                        <div class="photo-caption">avatar-mountains-china.jpeg</div>
-                    </div>
-                    
-                    <div class="photo-card" onclick="expandPhoto('blue-mountains-australia.jpeg', 'blue-mountains-australia.jpeg')">
-                        <img src="blue-mountains-australia.jpeg">
-                        <div class="photo-caption">blue-mountains-australia.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('brasov-romania.jpg', 'brasov-romania.jpg')">
-                        <img src="brasov-romania.jpg">
-                        <div class="photo-caption">brasov-romania.jpg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('cat-montenegro-kotor.jpeg', 'cat-montenegro-kotor.jpeg')">
-                        <img src="cat-montenegro-kotor.jpeg">
-                        <div class="photo-caption">cat-montenegro-kotor.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('cat-torii-japan.jpeg', 'cat-torii-japan.jpeg')">
-                        <img src="cat-torii-japan.jpeg">
-                        <div class="photo-caption">cat-torii-japan.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('chongqing-contrasts.jpeg', 'chongqing-contrasts.jpeg')">
-                        <img src="chongqing-contrasts.jpeg">
-                        <div class="photo-caption">chongqing-contrasts.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('jaipur-steps.JPG', 'jaipur-steps.JPG')">
-                        <img src="jaipur-steps.JPG">
-                        <div class="photo-caption">jaipur-steps.JPG</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('leopard-sri-lanka.JPG', 'leopard-sri-lanka.JPG')">
-                        <img src="leopard-sri-lanka.JPG">
-                        <div class="photo-caption">leopard-sri-lanka.JPG</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('mclaren-budapest-gp-2024.JPG', 'mclaren-budapest-gp-2024.JPG')">
-                        <img src="mclaren-budapest-gp-2024.JPG">
-                        <div class="photo-caption">mclaren-budapest-gp-2024.JPG</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('monkey.JPG', 'monkey.JPG')">
-                        <img src="monkey.JPG">
-                        <div class="photo-caption">monkey.JPG</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('night-sky-tenerife.JPG', 'night-sky-tenerife.JPG')">
-                        <img src="night-sky-tenerife.JPG">
-                        <div class="photo-caption">night-sky-tenerife.JPG</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('podium-budapest-gp-2024.JPG', 'podium-budapest-gp-2024.JPG')">
-                        <img src="podium-budapest-gp-2024.JPG">
-                        <div class="photo-caption">podium-budapest-gp-2024.JPG</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('puppy-laos-nong-khiaw.jpeg', 'puppy-laos-nong-khiaw.jpeg')">
-                        <img src="puppy-laos-nong-khiaw.jpeg">
-                        <div class="photo-caption">puppy-laos-nong-khiaw.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('river-luang-prabang.jpeg', 'river-luang-prabang.jpeg')">
-                        <img src="river-luang-prabang.jpeg">
-                        <div class="photo-caption">river-luang-prabang.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('shells-indonesia.jpeg', 'shells-indonesia.jpeg')">
-                        <img src="shells-indonesia.jpeg">
-                        <div class="photo-caption">shells-indonesia.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('sunset-laos.jpeg', 'sunset-laos.jpeg')">
-                        <img src="sunset-laos.jpeg">
-                        <div class="photo-caption">sunset-laos.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('sydney.JPG', 'sydney.JPG')">
-                        <img src="sydney.JPG">
-                        <div class="photo-caption">sydney.JPG</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('taj-mahal-reflections.JPG', 'taj-mahal-reflections.JPG')">
-                        <img src="taj-mahal-reflections.JPG">
-                        <div class="photo-caption">taj-mahal-reflections.JPG</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('taj-mahal.jpeg', 'taj-mahal.jpeg')">
-                        <img src="taj-mahal.jpeg">
-                        <div class="photo-caption">taj-mahal.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('tenerife-sunset.jpeg', 'tenerife-sunset.jpeg')">
-                        <img src="tenerife-sunset.jpeg">
-                        <div class="photo-caption">tenerife-sunset.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('turtles-indonesia.jpeg', 'turtles-indonesia.jpeg')">
-                        <img src="turtles-indonesia.jpeg">
-                        <div class="photo-caption">turtles-indonesia.jpeg</div>
-                    </div>
-
-                    <div class="photo-card" onclick="expandPhoto('vietnam-chicks.jpeg', 'vietnam-chicks.jpeg')">
-                        <img src="vietnam-chicks.jpeg">
-                        <div class="photo-caption">vietnam-chicks.jpeg</div>
-                    </div>
-
+                    <div class="photo-card" onclick="expandPhoto('antalya-gorge.jpeg')"><img src="antalya-gorge.jpeg" alt="Antalya Gorge"></div>
+                    <div class="photo-card" onclick="expandPhoto('avatar-mountains-china.jpeg')"><img src="avatar-mountains-china.jpeg" alt="Avatar Mountains, China"></div>
+                    <div class="photo-card" onclick="expandPhoto('blue-mountains-australia.jpeg')"><img src="blue-mountains-australia.jpeg" alt="Blue Mountains, Australia"></div>
+                    <div class="photo-card" onclick="expandPhoto('brasov-romania.jpg')"><img src="brasov-romania.jpg" alt="Brasov, Romania"></div>
+                    <div class="photo-card" onclick="expandPhoto('cat-montenegro-kotor.jpeg')"><img src="cat-montenegro-kotor.jpeg" alt="Cat in Kotor, Montenegro"></div>
+                    <div class="photo-card" onclick="expandPhoto('cat-torii-japan.jpeg')"><img src="cat-torii-japan.jpeg" alt="Cat at Torii, Japan"></div>
+                    <div class="photo-card" onclick="expandPhoto('chongqing-contrasts.jpeg')"><img src="chongqing-contrasts.jpeg" alt="Chongqing"></div>
+                    <div class="photo-card" onclick="expandPhoto('jaipur-steps.JPG')"><img src="jaipur-steps.JPG" alt="Jaipur Steps"></div>
+                    <div class="photo-card" onclick="expandPhoto('leopard-sri-lanka.JPG')"><img src="leopard-sri-lanka.JPG" alt="Leopard, Sri Lanka"></div>
+                    <div class="photo-card" onclick="expandPhoto('mclaren-budapest-gp-2024.JPG')"><img src="mclaren-budapest-gp-2024.JPG" alt="McLaren, Budapest GP 2024"></div>
+                    <div class="photo-card" onclick="expandPhoto('monkey.JPG')"><img src="monkey.JPG" alt="Monkey"></div>
+                    <div class="photo-card" onclick="expandPhoto('night-sky-tenerife.JPG')"><img src="night-sky-tenerife.JPG" alt="Night Sky, Tenerife"></div>
+                    <div class="photo-card" onclick="expandPhoto('podium-budapest-gp-2024.JPG')"><img src="podium-budapest-gp-2024.JPG" alt="Podium, Budapest GP 2024"></div>
+                    <div class="photo-card" onclick="expandPhoto('puppy-laos-nong-khiaw.jpeg')"><img src="puppy-laos-nong-khiaw.jpeg" alt="Puppy, Nong Khiaw, Laos"></div>
+                    <div class="photo-card" onclick="expandPhoto('river-luang-prabang.jpeg')"><img src="river-luang-prabang.jpeg" alt="River, Luang Prabang"></div>
+                    <div class="photo-card" onclick="expandPhoto('shells-indonesia.jpeg')"><img src="shells-indonesia.jpeg" alt="Shells, Indonesia"></div>
+                    <div class="photo-card" onclick="expandPhoto('sunset-laos.jpeg')"><img src="sunset-laos.jpeg" alt="Sunset, Laos"></div>
+                    <div class="photo-card" onclick="expandPhoto('sydney.JPG')"><img src="sydney.JPG" alt="Sydney"></div>
+                    <div class="photo-card" onclick="expandPhoto('taj-mahal-reflections.JPG')"><img src="taj-mahal-reflections.JPG" alt="Taj Mahal Reflections"></div>
+                    <div class="photo-card" onclick="expandPhoto('taj-mahal.jpeg')"><img src="taj-mahal.jpeg" alt="Taj Mahal"></div>
+                    <div class="photo-card" onclick="expandPhoto('tenerife-sunset.jpeg')"><img src="tenerife-sunset.jpeg" alt="Tenerife Sunset"></div>
+                    <div class="photo-card" onclick="expandPhoto('turtles-indonesia.jpeg')"><img src="turtles-indonesia.jpeg" alt="Turtles, Indonesia"></div>
+                    <div class="photo-card" onclick="expandPhoto('vietnam-chicks.jpeg')"><img src="vietnam-chicks.jpeg" alt="Chicks, Vietnam"></div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <div id="win-lightbox" class="window" style="top: 15%; left: 35%;">
-            <div class="window-titlebar" onmousedown="focusWindow('win-lightbox')">
-                <span id="lightbox-title">ImageViewer.exe</span>
-                <div class="window-controls">
-                    <button onclick="closeWindow('win-lightbox')">X</button>
-                </div>
-            </div>
-            <div class="window-body lightbox-body">
-                <img id="expanded-image" class="lightbox-img" src="" alt="Expanded Preview">
-                <div id="expanded-caption" class="lightbox-caption"></div>
-            </div>
-        </div>
-
+        </main>
     </div>
 
-    <div class="taskbar">
-        <button class="start-button" onclick="alert('Mirella OS v1.0. Click a desktop app to begin browsing.')">
-            <img src="start-icon.png" alt="" class="start-icon-img">
-            <span>Start</span>
-        </button>
-
-        <div class="taskbar-right">
-            <div class="social-shortcuts">
-                <a class="social-link" href="https://github.com/mirella-54" target="_blank" title="GitHub">GitHub</a>
-                <a class="social-link" href="https://linkedin.com/in/mirella-zeisler" target="_blank" title="LinkedIn">LinkedIn</a>
-                <a class="social-link" href="mailto:mirella-zeisler@gmail.com" title="Email Me">Email</a>
-            </div>
-            
-            <div class="system-tray">
-                <span id="clock">12:00 PM</span>
-            </div>
-        </div>
+    <div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+        <img id="expanded-image" src="" alt="Expanded photo">
     </div>
+
+    <footer>
+        &copy; 2026 Mirella Zeisler
+    </footer>
 
     <script>
-        // --- WINDOW LOGIC ---
-        function openWindow(id) {
-            const win = document.getElementById(id);
-            win.style.display = 'flex';
-            focusWindow(id);
-        }
-
-        function closeWindow(id) {
-            const win = document.getElementById(id);
-            win.style.display = 'none';
-        }
-
-        function focusWindow(id) {
-            const windows = document.querySelectorAll('.window');
-            windows.forEach(w => w.classList.remove('active'));
-            
-            const activeWin = document.getElementById(id);
-            activeWin.classList.add('active');
-        }
-
-        // --- ENLARGE PHOTO LOGIC ---
-        function expandPhoto(imageSrc, captionText) {
+        // --- LIGHTBOX ---
+        function expandPhoto(imageSrc) {
             document.getElementById('expanded-image').src = imageSrc;
-            document.getElementById('expanded-caption').innerText = captionText;
-            document.getElementById('lightbox-title').innerText = "ImageViewer.exe - " + captionText;
-            openWindow('win-lightbox');
+            document.getElementById('lightbox-overlay').classList.add('open');
         }
 
-        // --- RANDOMIZE GALLERY ITEMS ON LOAD ---
+        function closeLightbox(event) {
+            if (event.target.id === 'lightbox-overlay' || event.target.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox-overlay').classList.remove('open');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('lightbox-overlay').classList.remove('open');
+            }
+        });
+
+        // --- SHUFFLE TRAVEL GRID ---
         window.addEventListener('DOMContentLoaded', () => {
             const grid = document.getElementById('travel-grid-container');
             const cards = Array.from(grid.children);
-            
             for (let i = cards.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [cards[i], cards[j]] = [cards[j], cards[i]];
             }
-            
             cards.forEach(card => grid.appendChild(card));
         });
 
-        // --- CLOCK WORKER ---
-        function updateClock() {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12 || 12; 
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('clock').innerHTML = hours + ':' + minutes + ' ' + ampm;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        // --- SCROLLSPY FOR TOP NAV ---
+        const navLinks = document.querySelectorAll('.topnav a');
+        const sections = document.querySelectorAll('main section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.toggle('current', link.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+
+        sections.forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
